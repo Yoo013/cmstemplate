@@ -13,22 +13,48 @@
             overflow-x: hidden;
         }
 
+        .navbar {
+            background-color: #1e4b87;
+            padding: 15px 0px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .navbar-brand {
+            color: white;
+            font-weight: 600;
+            font-size: 20px;
+        }
+
+        .navbar-toggler {
+            border: none;
+            color: white;
+            display: none;
+        }
+
+        .user-menu {
+            color: white;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
         .sidebar {
             background-color: #1e4b87;
             color: white;
             height: 100vh;
             position: fixed;
-            top: 0;
+            top: 70px;
             bottom: 0;
             left: 0;
-            width: 16.666667%;
+            width: 250px;
             overflow-y: auto;
-            padding-top: 20px;
+            padding-top: 0;
             z-index: 100;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 2px 0 8px rgba(0,0,0,0.1);
         }
 
         .sidebar::-webkit-scrollbar {
-            width: 6px;
+            width: 4px;
         }
 
         .sidebar::-webkit-scrollbar-track {
@@ -40,18 +66,13 @@
             border-radius: 3px;
         }
 
-        .sidebar h4 {
-            font-size: 1.2rem;
-            padding-left: 15px;
-            margin-bottom: 20px;
-        }
-
         .sidebar .nav-link {
             color: white;
             font-size: 13px;
-            padding: 10px 20px;
+            padding: 10px 15px;
             border-left: 4px solid transparent;
             transition: all 0.3s ease;
+            white-space: nowrap;
         }
 
         .sidebar .nav-link:hover,
@@ -61,73 +82,101 @@
         }
 
         .main-content {
-            margin-left: 16.666667%;
+            margin-left: 250px;
+            transition: all 0.3s;
+            background-color: #e9f2f9;
+            min-height: 100vh;
+            padding-top: 56px;
         }
 
-        .header-bar {
-            background-color: #1e4b87;
-            color: white;
-            padding: 15px 30px;
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            font-size: 1rem;
-            font-weight: 500;
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            .navbar-toggler {
+                display: block !important;
+            }
+
+            .sidebar {
+                transform: translateY(-100%);
+                width: 100%;
+                top: 56px;
+                left: 0;
+                height: 50vh;
+                border-radius: 0 0 8px 8px;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            }
+            
+            .sidebar.show {
+                transform: translateY(0);
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .sidebar.mobile-scroll {
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+            }
         }
 
         .account-header {
             background-color: #c6e6f9;
-            padding: 8px 20px;
-            border-radius: 4px;
-            font-weight: 700;
+            padding: 20px 20px;
+            margin-bottom: 15px;
         }
 
         .account-header h4 {
             margin: 0;
-            font-size: 1.5rem;
-            font-weight: bold;
+            font-size: 18px;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .account-balance {
+            font-size: 14px;
+            display: flex;
+            align-items: center;
         }
 
         .notification-card {
-            margin: 20px 30px;
-            border-radius: 6px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border-radius: 4px;
+            margin-bottom: 15px;
             overflow: hidden;
         }
 
         .notification-header {
             display: flex;
             align-items: center;
-            padding: 15px 20px;
+            padding: 10px 15px;
             font-weight: bold;
-            font-size: 0.95rem;
+            font-size: 18px;
             color: #333;
+            border-bottom: 1px solid #eee;
         }
 
         .kotak {
-            width: 12px;
-            height: 12px;
-            background-color: #1e4b87;
-            border-radius: 2px;
+            width: 15px;
+            height: 15px;
+            background-color: #8cc640;
             margin-right: 10px;
         }
 
         .notification-body {
-            padding: 20px;
-            font-size: 0.95rem;
+            padding: 15px;
+            font-size: 14px;
             color: #444;
         }
 
         .notification-date {
-            font-size: 0.8rem;
-            color: #999;
-            margin-bottom: 10px;
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 15px;
         }
 
         .promotion-banner {
             width: 100%;
             border-radius: 4px;
-            margin-top: 10px;
+            margin-top: 5px;
         }
 
         .online-indicator {
@@ -137,7 +186,7 @@
             background-color: #05426e;
             color: white;
             padding: 8px 15px;
-            font-size: 0.9rem;
+            font-size: 13px;
             border-radius: 4px;
             box-shadow: 0 2px 6px rgba(0,0,0,0.2);
             z-index: 1000;
@@ -158,79 +207,77 @@
         .running-text {
             white-space: nowrap;
             animation: marquee 30s linear infinite;
-            font-size: 0.9rem;
+            font-size: 13px;
         }
 
         @keyframes marquee {
             0% { transform: translate(100%, 0); }
             100% { transform: translate(-100%, 0); }
         }
-
-        @media (max-width: 768px) {
-            .sidebar {
-                position: relative;
-                height: auto;
-                width: 100%;
-            }
-            .main-content {
-                margin-left: 0;
-            }
-        }
     </style>
 </head>
 <body>
-    <div class="container-fluid p-0">
-        <div class="row g-0">
-            <!-- Sidebar -->
-            <nav class="col-md-2 sidebar">
-                <h4>PPOB Nusantara</h4>
-                <ul class="nav flex-column">
-                    <li class="nav-item"><a class="nav-link active" href="#"><i class="fas fa-home me-2"></i> HALAMAN UTAMA</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-wallet me-2"></i> TOPUP DEPOSIT</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-credit-card me-2"></i> MULTI PAYMENT</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-exchange-alt me-2"></i> GIRALISASI</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-cog me-2"></i> ADMINISTRASI</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-university me-2"></i> TRANSFER BANK</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-plane me-2"></i> TIKET PESAWAT</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-train me-2"></i> TIKET KERETA API</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-bus me-2"></i> TIKET TRAVEL</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-bolt me-2"></i> TAGIHAN PLN</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-tags me-2"></i> PROMO PREPAID</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-file-invoice me-2"></i> TAGIHAN PDAM</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-phone me-2"></i> TELKOM</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-mobile-alt me-2"></i> TELCO POSTPAID</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-money-bill-wave me-2"></i> MULTI FINANCE</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-television me-2"></i> TV BERLANGGANAN</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-motorcycle me-2"></i> TOPUP GOJEK</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-car me-2"></i> TOPUP MAXIM</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-taxi me-2"></i> TOPUP LINK AJA</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-wallet me-2"></i> TOPUP OVO</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-money-bill me-2"></i> TOPUP DANA</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-shopping-bag me-2"></i> SHOPEE PAY</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-road me-2"></i> TOPUP ETOLL</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-gamepad me-2"></i> VOUCHER GAME</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-sim-card me-2"></i> PULSA</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-user-shield me-2"></i> BPJS TENAGA KERJA</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-heartbeat me-2"></i> BPJS KESEHATAN</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-building me-2"></i> PEMBAYARAN PBB</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-fire me-2"></i> PGN</a></li>
-                </ul>
-            </nav>
+    <!-- Navbar -->
+    <nav class="navbar fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">PPOB Nusantara</a>
+            <button class="navbar-toggler" type="button" id="sidebarToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="user-menu d-none d-md-block">
+                <i class="fas fa-user me-1"></i> Reiky Satria <i class="fas fa-caret-down ms-1"></i>
+            </div>
+        </div>
+    </nav>
 
-            <!-- Main Content -->
-            <main class="col-md-10 main-content">
-                <div class="header-bar">
-                    <i class="fas fa-user me-1"></i> Reiky Satria <i class="fas fa-caret-down ms-1"></i>
+    <!-- Sidebar -->
+    <div class="sidebar mobile-scroll" id="sidebar">
+        <ul class="nav flex-column">
+            <li class="nav-item"><a class="nav-link active" href="#"><i class="fas fa-home me-2"></i> HALAMAN UTAMA</a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-wallet me-2"></i> TOPUP DEPOSIT</a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-credit-card me-2"></i> MULTI PAYMENT</a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-exchange-alt me-2"></i> GIRALISASI</a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-cog me-2"></i> ADMINISTRASI</a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-university me-2"></i> TRANSFER BANK</a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-plane me-2"></i> TIKET PESAWAT</a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-train me-2"></i> TIKET KERETA API</a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-bus me-2"></i> TIKET TRAVEL</a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-bolt me-2"></i> TAGIHAN PLN</a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-tags me-2"></i> PROMO PREPAID</a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-file-invoice me-2"></i> TAGIHAN PDAM</a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-phone me-2"></i> TELKOM</a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-mobile-alt me-2"></i> TELCO POSTPAID</a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-money-bill-wave me-2"></i> MULTI FINANCE</a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-television me-2"></i> TV BERLANGGANAN</a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-motorcycle me-2"></i> TOPUP GOJEK</a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-car me-2"></i> TOPUP MAXIM</a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-taxi me-2"></i> TOPUP LINK AJA</a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-wallet me-2"></i> TOPUP OVO</a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-money-bill me-2"></i> TOPUP DANA</a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-shopping-bag me-2"></i> SHOPEE PAY</a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-road me-2"></i> TOPUP ETOLL</a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-gamepad me-2"></i> VOUCHER GAME</a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-sim-card me-2"></i> PULSA</a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-user-shield me-2"></i> BPJS TENAGA KERJA</a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-heartbeat me-2"></i> BPJS KESEHATAN</a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-building me-2"></i> PEMBAYARAN PBB</a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-fire me-2"></i> PGN</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        <div class="container-fluid p-0">
+            <!-- Account Header -->
+            <div class="account-header">
+                <h4>AB31009 - Ploso Asri Cell</h4>
+                <div class="account-balance">
+                    <span>Saldo Anda Saat ini: <strong>Rp. 0</strong></span>
+                    <button class="btn btn-sm btn-outline-secondary ms-2"><i class="fas fa-sync-alt"></i></button>
                 </div>
+            </div>
 
-                <div class="account-header">
-                    <h4>AB31009 - Ploso Asri Cell</h4>
-                    <div class="d-flex align-items-center">
-                        <span>Saldo Anda Saat ini: <strong>Rp. 0</strong></span>
-                        <button class="btn btn-sm btn-outline-secondary ms-2"><i class="fas fa-sync-alt"></i></button>
-                    </div>
-                </div>
-
+            <div class="container-fluid px-3">
                 <!-- Notifikasi 1 -->
                 <div class="notification-card">
                     <div class="notification-header">
@@ -257,10 +304,10 @@
                         <div class="notification-date">
                             <i class="far fa-calendar me-1"></i> 15 Februari 2025 16:37:42
                         </div>
-                        <img src="/api/placeholder/1200/200" alt="Promo KAI Lebaran" class="promotion-banner">
+                        <img src="/api/placeholder/1200/400" alt="Promo KAI Lebaran" class="promotion-banner">
                     </div>
                 </div>
-            </main>
+            </div>
         </div>
     </div>
 
@@ -277,5 +324,45 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebarToggle = document.getElementById('sidebarToggle');
+            const sidebar = document.getElementById('sidebar');
+            
+            // Toggle sidebar dengan animasi slide down
+            sidebarToggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                sidebar.classList.toggle('show');
+            });
+
+            // Tutup sidebar saat klik di luar area
+            document.addEventListener('click', function(e) {
+                if (window.innerWidth <= 768 && 
+                    !sidebar.contains(e.target) && 
+                    !sidebarToggle.contains(e.target) &&
+                    sidebar.classList.contains('show')) {
+                    sidebar.classList.remove('show');
+                }
+            });
+
+            // Reset sidebar saat resize window
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 768) {
+                    sidebar.classList.remove('show');
+                }
+            });
+
+            // Smooth scroll untuk menu mobile
+            sidebar.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', function() {
+                    if (window.innerWidth <= 768) {
+                        setTimeout(() => {
+                            sidebar.classList.remove('show');
+                        }, 300);
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
