@@ -40,14 +40,16 @@
         .sidebar {
             background-color: #1e4b87;
             color: white;
-            height: 100vh;
+            min-height: 100vh; /* Changed from height: 100vh */
+            height: auto; /* Added to allow content to expand */
             position: fixed;
             top: 70px;
             bottom: 0;
             left: 0;
             width: 250px;
-            overflow-y: auto;
+            overflow-y: auto !important; /* Force scroll */
             padding-top: 0;
+            padding-bottom: 200px; /* Added padding to ensure last items are visible */
             z-index: 100;
             transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: 2px 0 8px rgba(0,0,0,0.1);
@@ -78,8 +80,49 @@
         .sidebar .nav-link:hover,
         .sidebar .nav-link.active {
             background-color: #163a6a;
-
             border-left: 4px solid #f1c40f;
+        }
+
+        /* Dropdown styles */
+        .dropdown-toggle {
+            position: relative;
+            cursor: pointer;
+            display: flex !important;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .dropdown-toggle .fa-chevron-down {
+            transition: transform 0.3s ease;
+            font-size: 10px;
+        }
+
+        .dropdown-toggle.collapsed .fa-chevron-down {
+            transform: rotate(-90deg);
+        }
+
+        .sub-menu {
+            background-color: rgba(10, 38, 71, 0.5);
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .sub-menu.show {
+            max-height: 500px;
+        }
+
+        .sub-menu .nav-link {
+            padding-left: 35px;
+            font-size: 12px;
+        }
+
+        .sub-menu .nav-link:hover,
+        .sub-menu .nav-link.active {
+            background-color: #0a2647;
         }
 
         .main-content {
@@ -88,6 +131,11 @@
             background-color: #e9f2f9;
             min-height: 100vh;
             padding-top: 56px;
+            padding-bottom: 60px; /* Added padding for running text */
+        }
+
+        .page {
+            padding: 15px 40px;
         }
 
         /* Mobile Styles */
@@ -101,9 +149,12 @@
                 width: 100%;
                 top: 56px;
                 left: 0;
-                height: 50vh;
+                height: 70vh; /* Changed from 50vh for more space */
+                min-height: auto; /* Override min-height for mobile */
                 border-radius: 0 0 8px 8px;
                 box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+                overflow-y: scroll !important;
+                -webkit-overflow-scrolling: touch;
             }
             
             .sidebar.show {
@@ -128,14 +179,14 @@
 
         .account-header h4 {
             margin: 0;
-            font-size: 18px;
             font-weight: 700;
             color: #333;
         }
 
         .account-balance {
-            font-size: 14px;
+            font-size: 15px;
             display: flex;
+            font-weight: 700;
             align-items: center;
         }
 
@@ -148,19 +199,12 @@
         .notification-header {
             display: flex;
             align-items: center;
-            padding: 10px 15px;
             font-weight: bold;
             font-size: 18px;
             color: #333;
             border-bottom: 1px solid #eee;
         }
 
-        .kotak {
-            width: 15px;
-            height: 15px;
-            background-color: #8cc640;
-            margin-right: 10px;
-        }
 
         .notification-body {
             padding: 15px;
@@ -182,7 +226,7 @@
 
         .online-indicator {
             position: fixed;
-            bottom: 20px;
+            bottom: 40px;
             right: 20px;
             background-color: #05426e;
             color: white;
@@ -190,19 +234,18 @@
             font-size: 13px;
             border-radius: 4px;
             box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-            z-index: 1000;
+            z-index: 1001;
         }
 
         .running-text-container {
             position: fixed;
             bottom: 0;
-            left: 0;
             right: 0;
             background-color: #1e4b87;
             color: white;
             padding: 8px 0;
             overflow: hidden;
-            z-index: 999;
+            z-index: 1000; /* Increased z-index */
         }
 
         .running-text {
@@ -234,82 +277,134 @@
     <!-- Sidebar -->
     <div class="sidebar mobile-scroll" id="sidebar">
         <ul class="nav flex-column">
-            <li class="nav-item"><a class="nav-link active" href="#"><i class="fas fa-home me-2"></i> HALAMAN UTAMA</a></li>
-            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-wallet me-2"></i> TOPUP DEPOSIT</a></li>
-            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-credit-card me-2"></i> MULTI PAYMENT</a></li>
-            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-exchange-alt me-2"></i> GIRALISASI</a></li>
-            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-cog me-2"></i> ADMINISTRASI</a></li>
-            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-university me-2"></i> TRANSFER BANK</a></li>
-            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-plane me-2"></i> TIKET PESAWAT</a></li>
-            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-train me-2"></i> TIKET KERETA API</a></li>
-            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-bus me-2"></i> TIKET TRAVEL</a></li>
-            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-bolt me-2"></i> TAGIHAN PLN</a></li>
-            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-tags me-2"></i> PROMO PREPAID</a></li>
-            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-file-invoice me-2"></i> TAGIHAN PDAM</a></li>
-            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-phone me-2"></i> TELKOM</a></li>
-            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-mobile-alt me-2"></i> TELCO POSTPAID</a></li>
-            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-money-bill-wave me-2"></i> MULTI FINANCE</a></li>
-            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-television me-2"></i> TV BERLANGGANAN</a></li>
-            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-motorcycle me-2"></i> TOPUP GOJEK</a></li>
-            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-car me-2"></i> TOPUP MAXIM</a></li>
-            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-taxi me-2"></i> TOPUP LINK AJA</a></li>
-            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-wallet me-2"></i> TOPUP OVO</a></li>
-            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-money-bill me-2"></i> TOPUP DANA</a></li>
-            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-shopping-bag me-2"></i> SHOPEE PAY</a></li>
-            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-road me-2"></i> TOPUP ETOLL</a></li>
-            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-gamepad me-2"></i> VOUCHER GAME</a></li>
-            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-sim-card me-2"></i> PULSA</a></li>
-            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-user-shield me-2"></i> BPJS TENAGA KERJA</a></li>
-            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-heartbeat me-2"></i> BPJS KESEHATAN</a></li>
-            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-building me-2"></i> PEMBAYARAN PBB</a></li>
-            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-fire me-2"></i> PGN</a></li>
+            <li class="nav-item"><a class="nav-link active" href="#" data-page="home.html"><i class="fas fa-home me-2"></i> HALAMAN UTAMA</a></li>
+            <li class="nav-item"><a class="nav-link" href="#" data-page="topup-deposit.html"><i class="fas fa-wallet me-2"></i> TOPUP DEPOSIT</a></li>
+            <li class="nav-item"><a class="nav-link" href="#" data-page="multi-payment.html"><i class="fas fa-credit-card me-2"></i> MULTI PAYMENT</a></li>
+            
+            <!-- Giralisasi Dropdown -->
+            <li class="nav-item">
+                <a class="nav-link dropdown-toggle collapsed" href="#">
+                    <div><i class="fas fa-exchange-alt me-2"></i> GIRALISASI</div>
+                    
+                </a>
+                <ul class="sub-menu">
+                    <li><a class="nav-link" href="#" data-page="giralisasi-transaksi.html"><i class="fas fa-circle me-2 small"></i> Transaksi</a></li>
+                    <li><a class="nav-link" href="#" data-page="giralisasi-cetak.html"><i class="fas fa-circle me-2 small"></i> Cetak Ulang</a></li>
+                    <li><a class="nav-link" href="#" data-page="giralisasi-pengaturan.html"><i class="fas fa-circle me-2 small"></i> Pengaturan</a></li>
+                </ul>
+            </li>
+            
+            <!-- Administrasi Dropdown -->
+            <li class="nav-item">
+                <a class="nav-link dropdown-toggle collapsed" href="#">
+                    <div><i class="fas fa-cog me-2"></i> ADMINISTRASI</div>
+                    
+                </a>
+                <ul class="sub-menu">
+                    <li><a class="nav-link" href="#" data-page="administrasi-konfirmasi.html"><i class="fas fa-circle me-2 small"></i> Konfirmasi Deposit</a></li>
+                    <li><a class="nav-link" href="#" data-page="administrasi-kasir.html"><i class="fas fa-circle me-2 small"></i> Tambah Kasir</a></li>
+                    <li><a class="nav-link" href="#" data-page="administrasi-fee.html"><i class="fas fa-circle me-2 small"></i> Daftar Fee</a></li>
+                    <li><a class="nav-link" href="#" data-page="administrasi-histori.html"><i class="fas fa-circle me-2 small"></i> Histori Deposit</a></li>
+                </ul>
+            </li>
+            
+            <li class="nav-item"><a class="nav-link" href="#" data-page="transfer-bank.html"><i class="fas fa-university me-2"></i> TRANSFER BANK</a></li>
+            <li class="nav-item"><a class="nav-link" href="#" data-page="tiket-pesawat.html"><i class="fas fa-plane me-2"></i> TIKET PESAWAT</a></li>
+            <li class="nav-item"><a class="nav-link" href="#" data-page="tiket-kereta.html"><i class="fas fa-train me-2"></i> TIKET KERETA API</a></li>
+            <li class="nav-item"><a class="nav-link" href="#" data-page="tiket-travel.html"><i class="fas fa-bus me-2"></i> TIKET TRAVEL</a></li>
+            
+            <!-- PLN Dropdown -->
+            <li class="nav-item">
+                <a class="nav-link dropdown-toggle collapsed" href="#">
+                    <div><i class="fas fa-bolt me-2"></i> TAGIHAN PLN</div>
+                    
+                </a>
+                <ul class="sub-menu">
+                    <li><a class="nav-link" href="#" data-page="pln-pascabayar.html"><i class="fas fa-circle me-2 small"></i> PLN Pascabayar</a></li>
+                    <li><a class="nav-link" href="#" data-page="pln-nontaglist.html"><i class="fas fa-circle me-2 small"></i> PLN Non Taglist</a></li>
+                    <li><a class="nav-link" href="#" data-page="pln-prabayar.html"><i class="fas fa-circle me-2 small"></i> PLN Prabayar</a></li>
+                    <li><a class="nav-link" href="#" data-page="pln-advice.html"><i class="fas fa-circle me-2 small"></i> Manual Advice</a></li>
+                </ul>
+            </li>
+            
+            <li class="nav-item"><a class="nav-link" href="#" data-page="promo-prepaid.html"><i class="fas fa-tags me-2"></i> PROMO PREPAID</a></li>
+            <li class="nav-item"><a class="nav-link" href="#" data-page="tagihan-pdam.html"><i class="fas fa-file-invoice me-2"></i> TAGIHAN PDAM</a></li>
+            
+            <!-- Telkom Dropdown -->
+            <li class="nav-item">
+                <a class="nav-link dropdown-toggle collapsed" href="#">
+                    <div><i class="fas fa-phone me-2"></i> TELKOM</div>
+                    
+                </a>
+                <ul class="sub-menu">
+                    <li><a class="nav-link" href="#" data-page="telkom-pstn.html"><i class="fas fa-circle me-2 small"></i> PSTN</a></li>
+                    <li><a class="nav-link" href="#" data-page="telkom-indihome.html"><i class="fas fa-circle me-2 small"></i> Indihome</a></li>
+                    <li><a class="nav-link" href="#" data-page="telkom-flexi.html"><i class="fas fa-circle me-2 small"></i> Flexi</a></li>
+                    <li><a class="nav-link" href="#" data-page="telkom-halo.html"><i class="fas fa-circle me-2 small"></i> Kartu Halo</a></li>
+                </ul>
+            </li>
+            
+            <li class="nav-item"><a class="nav-link" href="#" data-page="telco-postpaid.html"><i class="fas fa-mobile-alt me-2"></i> TELCO POSTPAID</a></li>
+            <li class="nav-item"><a class="nav-link" href="#" data-page="multi-finance.html"><i class="fas fa-money-bill-wave me-2"></i> MULTI FINANCE</a></li>
+            
+            <!-- TV Berlangganan Dropdown -->
+            <li class="nav-item">
+                <a class="nav-link dropdown-toggle collapsed" href="#">
+                    <div><i class="fas fa-television me-2"></i> TV BERLANGGANAN</div>
+                    
+                </a>
+                <ul class="sub-menu">
+                    <li><a class="nav-link" href="#" data-page="tv-firstmedia.html"><i class="fas fa-circle me-2 small"></i> First Media</a></li>
+                    <li><a class="nav-link" href="#" data-page="tv-indovision.html"><i class="fas fa-circle me-2 small"></i> Indovision</a></li>
+                    <li><a class="nav-link" href="#" data-page="tv-transvision.html"><i class="fas fa-circle me-2 small"></i> Transvision</a></li>
+                    <li><a class="nav-link" href="#" data-page="tv-bigtv.html"><i class="fas fa-circle me-2 small"></i> Big TV</a></li>
+                    <li><a class="nav-link" href="#" data-page="tv-topas.html"><i class="fas fa-circle me-2 small"></i> TopAS TV</a></li>
+                    <li><a class="nav-link" href="#" data-page="tv-nexmedia.html"><i class="fas fa-circle me-2 small"></i> Nex Media</a></li>
+                    <li><a class="nav-link" href="#" data-page="tv-innovate.html"><i class="fas fa-circle me-2 small"></i> Innovate TV</a></li>
+                    <li><a class="nav-link" href="#" data-page="tv-kvision.html"><i class="fas fa-circle me-2 small"></i> K-Vision</a></li>
+                </ul>
+            </li>
+            
+            <li class="nav-item"><a class="nav-link" href="#" data-page="topup-gojek.html"><i class="fas fa-motorcycle me-2"></i> TOPUP GOJEK</a></li>
+            <li class="nav-item"><a class="nav-link" href="#" data-page="topup-maxim.html"><i class="fas fa-car me-2"></i> TOPUP MAXIM</a></li>
+            <li class="nav-item"><a class="nav-link" href="#" data-page="topup-linkaja.html"><i class="fas fa-taxi me-2"></i> TOPUP LINK AJA</a></li>
+            <li class="nav-item"><a class="nav-link" href="#" data-page="topup-ovo.html"><i class="fas fa-wallet me-2"></i> TOPUP OVO</a></li>
+            <li class="nav-item"><a class="nav-link" href="#" data-page="topup-dana.html"><i class="fas fa-money-bill me-2"></i> TOPUP DANA</a></li>
+            <li class="nav-item"><a class="nav-link" href="#" data-page="topup-shopeepay.html"><i class="fas fa-shopping-bag me-2"></i> SHOPEE PAY</a></li>
+            <li class="nav-item"><a class="nav-link" href="#" data-page="topup-etoll.html"><i class="fas fa-road me-2"></i> TOPUP ETOLL</a></li>
+            <li class="nav-item"><a class="nav-link" href="#" data-page="voucher-game.html"><i class="fas fa-gamepad me-2"></i> VOUCHER GAME</a></li>
+            <li class="nav-item"><a class="nav-link" href="#" data-page="pulsa.html"><i class="fas fa-sim-card me-2"></i> PULSA</a></li>
+            <li class="nav-item"><a class="nav-link" href="#" data-page="bpjs-tenaga-kerja.html"><i class="fas fa-user-shield me-2"></i> BPJS TENAGA KERJA</a></li>
+            <li class="nav-item"><a class="nav-link" href="#" data-page="bpjs-kesehatan.html"><i class="fas fa-heartbeat me-2"></i> BPJS KESEHATAN</a></li>
+            <li class="nav-item"><a class="nav-link" href="#" data-page="pbb.html"><i class="fas fa-building me-2"></i> PEMBAYARAN PBB</a></li>
+            <li class="nav-item"><a class="nav-link" href="#" data-page="pgn.html"><i class="fas fa-fire me-2"></i> PGN</a></li>
         </ul>
     </div>
 
     <!-- Main Content -->
     <div class="main-content" id="mainContent">
-        <div class="container-fluid p-0">
-            <!-- Account Header -->
-            <div class="account-header">
-                <h4>AB31009 - Ploso Asri Cell</h4>
-                <div class="account-balance">
-                    <span>Saldo Anda Saat ini: <strong>Rp. 0</strong></span>
-                    <button class="btn btn-sm btn-outline-secondary ms-2"><i class="fas fa-sync-alt"></i></button>
-                </div>
-            </div>
-
-            <div class="container-fluid px-3">
-                <!-- Notifikasi 1 -->
-                <div class="notification-card">
-                    <div class="notification-header">
-                        <div class="kotak"></div>
-                        INFO GANGGUAN PRODUK TIKET KAI
-                    </div>
-                    <div class="notification-body">
-                        <div class="notification-date">
-                            <i class="far fa-calendar me-1"></i> 03 Maret 2025 10:55:53
-                        </div>
-                        <p>Dear Mitra PPOB Nusantara,</p>
-                        <p>Kami informasikan terkait adanya perubahan kebijakan dari penyedia layanan maka per 1 April 2025. Transaksi Tiket KAI tidak dapat disakukan sampai batas waktu yang belum ditentukan. Mohon maaf atas ketidaknyamanan yang terjadi dalam bertransaksi. Kami informasikan kembali jika sudah normal.</p>
-                        <p>Terima Kasih.</p>
-                    </div>
-                </div>
-
-                <!-- Notifikasi 2 -->
-                <div class="notification-card">
-                    <div class="notification-header">
-                        <div class="kotak"></div>
-                        SERBU! TIKET KERETA API MUDIK LEBARAN 2025 🚆 DI APLIKASI PPOB NUSANTARA
-                    </div>
-                    <div class="notification-body">
-                        <div class="notification-date">
-                            <i class="far fa-calendar me-1"></i> 15 Februari 2025 16:37:42
-                        </div>
-                        <img src="/api/placeholder/1200/400" alt="Promo KAI Lebaran" class="promotion-banner">
-                    </div>
-                </div>
+        <!-- Account Header -->
+        <div class="account-header">
+            <h3 class="fw-bold">AB31009 - Ploso Asri Cell</h3>
+            <div class="account-balance">
+                <span>Saldo Anda Saat ini: <strong>Rp. 0</strong></span>
+                <button class="btn btn-sm  ms-2"><i class="fas fa-sync-alt"></i></button>
             </div>
         </div>
+
+        <!-- Content will be loaded here -->
+        <div class="container-fluid page" id="pageContent">
+            <!-- Default content can be loaded here or via JavaScript -->
+            <div class="container mt-4 text-center">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+    </div>
+
+    <!-- Online Indicator -->
+    <div class="online-indicator">
+        Kami Online
     </div>
 
     <!-- Running Text -->
@@ -319,24 +414,21 @@
         </div>
     </div>
 
-    <!-- Online Indicator -->
-    <div class="online-indicator">
-        Kami Online
-    </div>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const sidebarToggle = document.getElementById('sidebarToggle');
             const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('mainContent');
+            const pageContent = document.getElementById('pageContent');
             
-            // Toggle sidebar dengan animasi slide down
+            // Toggle sidebar with slide down animation
             sidebarToggle.addEventListener('click', function(e) {
                 e.stopPropagation();
                 sidebar.classList.toggle('show');
             });
 
-            // Tutup sidebar saat klik di luar area
+            // Close sidebar when clicking outside
             document.addEventListener('click', function(e) {
                 if (window.innerWidth <= 768 && 
                     !sidebar.contains(e.target) && 
@@ -346,23 +438,110 @@
                 }
             });
 
-            // Reset sidebar saat resize window
+            // Reset sidebar on window resize
             window.addEventListener('resize', function() {
                 if (window.innerWidth > 768) {
                     sidebar.classList.remove('show');
                 }
             });
 
-            // Smooth scroll untuk menu mobile
-            sidebar.querySelectorAll('.nav-link').forEach(link => {
-                link.addEventListener('click', function() {
-                    if (window.innerWidth <= 768) {
-                        setTimeout(() => {
-                            sidebar.classList.remove('show');
-                        }, 300);
+            // Setup dropdown functionality
+            const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+            
+            dropdownToggles.forEach(function(toggle) {
+                toggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const parent = this.parentElement;
+                    const subMenu = parent.querySelector('.sub-menu');
+                    
+                    // Toggle the collapsed class
+                    this.classList.toggle('collapsed');
+                    
+                    // Toggle the submenu
+                    if (subMenu) {
+                        if (subMenu.classList.contains('show')) {
+                            subMenu.classList.remove('show');
+                        } else {
+                            // Close all other submenus
+                            document.querySelectorAll('.sub-menu.show').forEach(function(menu) {
+                                if (menu !== subMenu) {
+                                    menu.classList.remove('show');
+                                }
+                            });
+                            
+                            document.querySelectorAll('.dropdown-toggle:not(.collapsed)').forEach(function(tog) {
+                                if (tog !== this) {
+                                    tog.classList.add('collapsed');
+                                }
+                            });
+                            
+                            // Open this submenu
+                            subMenu.classList.add('show');
+                        }
                     }
                 });
             });
+
+            // Function to load page content
+            function loadPage(page) {
+                // Show loading indication (optional)
+                pageContent.innerHTML = '<div class="container mt-4 text-center"><div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div></div>';
+                
+                // Attempt to fetch the page
+                fetch('pages/' + page)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Page not found or error loading page');
+                        }
+                        return response.text();
+                    })
+                    .then(html => {
+                        // Update content
+                        pageContent.innerHTML = html;
+                    })
+                    .catch(err => {
+                        // Show error message
+                        pageContent.innerHTML = `
+                            <div class="container mt-4">
+                                <div class="alert alert-warning">
+                                    <h4>Halaman tidak ditemukan</h4>
+                                    <p>Maaf, halaman "${page}" sedang tidak tersedia atau dalam pengembangan.</p>
+                                </div>
+                            </div>
+                        `;
+                        console.error('Error loading page:', err);
+                    });
+            }
+
+            // Handle navigation link clicks
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const page = this.getAttribute('data-page');
+                    
+                    // If this link has a page to load
+                    if (page) {
+                        // Set this link as active
+                        document.querySelectorAll('.nav-link').forEach(navLink => {
+                            navLink.classList.remove('active');
+                        });
+                        this.classList.add('active');
+                        
+                        // Load the page content
+                        loadPage(page);
+                        
+                        // Close sidebar on mobile after clicking
+                        if (window.innerWidth <= 768) {
+                            sidebar.classList.remove('show');
+                        }
+                    }
+                });
+            });
+
+            // Load default home page on initial load
+            loadPage('home.html');
         });
     </script>
 </body>

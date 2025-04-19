@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PPOB Nusantara</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        .navbar {
+            background-color: #1e4b87;
+            padding: 15px 0px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .navbar-brand {
+            color: white;
+            font-weight: 600;
+            font-size: 20px;
+        }
+
+        .navbar-toggler {
+            border: none;
+            color: white;
+            display: none    ;
+        }
+
+        .navbar-toggler-icon {
+            color: white;
+        }
+
+        .user-menu {
+            color: white;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .sidebar {
+            background-color: #1e4b87;
+            color: white;
+            height: 100vh;
+            position: fixed;
+            top: 70px;
+            bottom: 0;
+            left: 0;
+            width: 250px;
+            overflow-y: auto;
+            padding-top: 0;
+            z-index: 100;
+            transition: all 0.3s;
+        }
+
+        .sidebar::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .sidebar::-webkit-scrollbar-track {
+            background: #163a6a;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background: #0a2647;
+            border-radius: 3px;
+        }
+
+        .sidebar .nav-link {
+            color: white;
+            font-size: 13px;
+            padding: 10px 15px;
+            border-left: 4px solid transparent;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .sidebar .nav-link:hover,
+        .sidebar .nav-link.active {
+            background-color: #163a6a;
+            border-left: 4px solid #f1c40f;
+        }
+
+        .main-content {
+            margin-left: 250px;
+            transition: all 0.3s;
+            background-color: #e9f2f9;
+            min-height: 100vh;
+            padding-top: 56px;
+        }
+
+        .account-header {
+            background-color: #c6e6f9;
+            padding: 20px 20px;
+            margin-bottom: 15px;
+        }
+
+        .account-header h4 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .account-balance {
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+        }
+
+        .notification-card {
+            border-radius: 4px;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+
+        .notification-header {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            font-weight: bold;
+            font-size: 18px;
+            color: #333;
+            border-bottom: 1px solid #eee;
+        }
+
+        .kotak {
+            width: 15px;
+            height: 15px;
+            background-color: #8cc640;
+            margin-right: 10px;
+        }
+
+        .notification-body {
+            padding: 15px;
+            font-size: 14px;
+            color: #444;
+        }
+
+        .notification-date {
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 15px;
+        }
+
+        .promotion-banner {
+            width: 100%;
+            border-radius: 4px;
+            margin-top: 5px;
+        }
+
+        .online-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #05426e;
+            color: white;
+            padding: 8px 15px;
+            font-size: 13px;
+            border-radius: 4px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+
+        .running-text-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: #1e4b87;
+            color: white;
+            padding: 8px 0;
+            overflow: hidden;
+            z-index: 999;
+        }
+
+        .running-text {
+            white-space: nowrap;
+            animation: marquee 30s linear infinite;
+            font-size: 13px;
+        }
+
+        @keyframes marquee {
+            0% { transform: translate(100%, 0); }
+            100% { transform: translate(-100%, 0); }
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                width: 100%;
+                top: 56px;
+            }
+            
+            .sidebar.show {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .account-header {
+                margin: 0 0 15px 0;
+            }
+            
+            .notification-card {
+                margin: 0 15px 15px;
+            }
+            
+            .navbar-brand {
+                font-size: 16px;
+            }
+            
+            .user-menu {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">PPOB Nusantara</a>
+            <button class="navbar-toggler" type="button" id="sidebarToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="user-menu d-none d-md-block">
+                <i class="fas fa-user me-1"></i> Reiky Satria <i class="fas fa-caret-down ms-1"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <ul class="nav flex-column">
+            <li class="nav-item"><a class="nav-link active" href="#"><i class="fas fa-home me-2"></i> HALAMAN UTAMA</a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-wallet me-2"></i> TOPUP DEPOSIT</a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-credit-card me-2"></i> MULTI PAYMENT</a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-exchange-alt me-2"></i> GIRALISASI</a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-cog me-2"></i> ADMINISTRASI</a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-university me-2"></i> TRANSFER BANK</a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-plane me-2"></i> TIKET PESAWAT</a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-train me-2"></i> TIKET KERETA API</a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-bus me-2"></i> TIKET TRAVEL</a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-bolt me-2"></i> TAGIHAN PLN</a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-tags me-2"></i> PROMO PREPAID</a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-file-invoice me-2"></i> TAGIHAN PDAM</a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-phone me-2"></i> TELKOM</a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-mobile-alt me-2"></i> TELCO POSTPAID</a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-money-bill-wave me-2"></i> MULTI FINANCE</a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-television me-2"></i> TV BERLANGGANAN</a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-motorcycle me-2"></i> TOPUP GOJEK</a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-car me-2"></i> TOPUP MAXIM</a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-taxi me-2"></i> TOPUP LINK AJA</a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-wallet me-2"></i> TOPUP OVO</a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-money-bill me-2"></i> TOPUP DANA</a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-shopping-bag me-2"></i> SHOPEE PAY</a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-road me-2"></i> TOPUP ETOLL</a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-gamepad me-2"></i> VOUCHER GAME</a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-sim-card me-2"></i> PULSA</a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-user-shield me-2"></i> BPJS TENAGA KERJA</a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-heartbeat me-2"></i> BPJS KESEHATAN</a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-building me-2"></i> PEMBAYARAN PBB</a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-fire me-2"></i> PGN</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        <div class="container-fluid p-0">
+            <!-- Account Header -->
+            <div class="account-header">
+                <h4>AB31009 - Ploso Asri Cell</h4>
+                <div class="account-balance">
+                    <span>Saldo Anda Saat ini: <strong>Rp. 0</strong></span>
+                    <button class="btn btn-sm btn-outline-secondary ms-2"><i class="fas fa-sync-alt"></i></button>
+                </div>
+            </div>
+
+            <div class="container-fluid px-3">
+                <!-- Notifikasi 1 -->
+                <div class="notification-card">
+                    <div class="notification-header">
+                        <div class="kotak"></div>
+                        INFO GANGGUAN PRODUK TIKET KAI
+                    </div>
+                    <div class="notification-body">
+                        <div class="notification-date">
+                            <i class="far fa-calendar me-1"></i> 03 Maret 2025 10:55:53
+                        </div>
+                        <p>Dear Mitra PPOB Nusantara,</p>
+                        <p>Kami informasikan terkait adanya perubahan kebijakan dari penyedia layanan maka per 1 April 2025. Transaksi Tiket KAI tidak dapat disakukan sampai batas waktu yang belum ditentukan. Mohon maaf atas ketidaknyamanan yang terjadi dalam bertransaksi. Kami informasikan kembali jika sudah normal.</p>
+                        <p>Terima Kasih.</p>
+                    </div>
+                </div>
+
+                <!-- Notifikasi 2 -->
+                <div class="notification-card">
+                    <div class="notification-header">
+                        <div class="kotak"></div>
+                        SERBU! TIKET KERETA API MUDIK LEBARAN 2025 🚆 DI APLIKASI PPOB NUSANTARA
+                    </div>
+                    <div class="notification-body">
+                        <div class="notification-date">
+                            <i class="far fa-calendar me-1"></i> 15 Februari 2025 16:37:42
+                        </div>
+                        <img src="/api/placeholder/1200/400" alt="Promo KAI Lebaran" class="promotion-banner">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Running Text -->
+    <div class="running-text-container">
+        <div class="running-text">
+            Support chat & deposit selama ramadhan 1446 H dilayani pada pukul 08.30 - 15.30 WIB | Transaksi PBB Kota Batam segera dibuka | Diskon 50% untuk semua produk digital | Selamat menunaikan ibadah puasa | Layanan 24 jam non-stop | Promo spesial Lebaran 2025 | Beli Tiket Kereta API segera
+        </div>
+    </div>
+
+    <!-- Online Indicator -->
+    <div class="online-indicator">
+        Kami Online
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Toggle sidebar
+            const sidebarToggle = document.getElementById('sidebarToggle');
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('mainContent');
+            
+            sidebarToggle.addEventListener('click', function() {
+                sidebar.classList.toggle('show');
+            });
+            
+            // Close sidebar when clicking on a menu item in mobile view
+            const navLinks = document.querySelectorAll('.sidebar .nav-link');
+            navLinks.forEach(function(link) {
+                link.addEventListener('click', function() {
+                    if (window.innerWidth <= 768) {
+                        sidebar.classList.remove('show');
+                    }
+                });
+            });
+            
+            // Handle clicks outside sidebar to close it on mobile
+            document.addEventListener('click', function(event) {
+                if (window.innerWidth <= 768 && !sidebar.contains(event.target) && 
+                    !sidebarToggle.contains(event.target) && sidebar.classList.contains('show')) {
+                    sidebar.classList.remove('show');
+                }
+            });
+            
+            // Adjust layout on resize
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 768) {
+                    sidebar.classList.remove('show');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
